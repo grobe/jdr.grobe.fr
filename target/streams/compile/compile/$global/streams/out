@@ -1,3 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0mG:\DEV\play2.6\jdr\conf\routes:8:1: value ws is not a member of controllers.HomeController[0m
-[0m[[0m[31merror[0m] [0m[0mGET     /ws                         controllers.HomeController.ws[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
