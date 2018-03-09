@@ -1,7 +1,12 @@
 package actors;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import akka.actor.*;
 import akka.actor.AbstractActor.Receive;
+
+import play.Logger;
 
 public class MyWebSocketActor extends AbstractActor {
 
@@ -17,14 +22,15 @@ public class MyWebSocketActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder()
-          .match(String.class, message ->
-              out.tell("I received your messagsssssssssse: " + message, self())
-            )
-          .build();
+    	Logger.debug("createReceive");
+    	
+        return receiveBuilder().match(String.class, message -> {Logger.debug(" Message="+message);
+        	                                                    out.tell("I received your messagsssssssssse: " + message, self());
+        	                                                    }).build();
     }
  /*   public void postStop() throws Exception {
     	//self().tell(PoisonPill.getInstance(), self());
     }
    */ 
 }
+

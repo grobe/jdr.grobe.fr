@@ -8,7 +8,7 @@ import akka.stream.Materializer;
 import play.libs.streams.ActorFlow;
 import play.mvc.*;
 import actors.MyWebSocketActor;
-
+import play.Logger;
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -27,8 +27,8 @@ public class HomeController extends Controller {
 	
     public WebSocket ws() {
     	
-    	
-    	
+    	//test
+    	Logger.debug("Attempting risky calculation.");
         return WebSocket.Text.accept(request ->
                 ActorFlow.actorRef(MyWebSocketActor::props,
                     actorSystem, materializer
