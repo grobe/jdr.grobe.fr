@@ -1,6 +1,8 @@
 package controllers;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import akka.stream.javadsl.*;
 import akka.actor.AbstractActor;
 import akka.actor.ActorSystem;
@@ -13,9 +15,11 @@ import play.Logger;
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
+
+@Singleton
 public class HomeController extends Controller {
 
-    
+        int toto;
 	private final ActorSystem actorSystem;
     private final Materializer materializer;
 
@@ -27,8 +31,10 @@ public class HomeController extends Controller {
 	
     public WebSocket ws() {
     	
+    	toto=toto++;
     	//test
-    	Logger.debug("Attempting risky calculation.");
+    	Logger.debug("WebSocket WS. + toto:"+toto);
+    	
         return WebSocket.Text.accept(request ->
                 ActorFlow.actorRef(MyWebSocketActor::props,
                     actorSystem, materializer
