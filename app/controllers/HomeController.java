@@ -16,10 +16,10 @@ import play.Logger;
  * to the application's home page.
  */
 
-@Singleton
+
 public class HomeController extends Controller {
 
-        int toto;
+    static public  int toto;
 	private final ActorSystem actorSystem;
     private final Materializer materializer;
 
@@ -31,9 +31,10 @@ public class HomeController extends Controller {
 	
     public WebSocket ws() {
     	
-    	toto=toto++;
+    	toto=toto+1;
     	//test
     	Logger.debug("WebSocket WS. + toto:"+toto);
+        
     	
         return WebSocket.Text.accept(request ->
                 ActorFlow.actorRef(MyWebSocketActor::props,
@@ -42,6 +43,40 @@ public class HomeController extends Controller {
         );
     }
 	
+    public WebSocket socket() {
+        return WebSocket.Text.accept(request -> {
+           
+        	Logger.debug("Before Sink  ");
+        	
+        	Sink<String, ?> sink;
+        	
+        	
+        	
+        	sink= Sink.foreach(message -> { Logger.debug("socket sink  + MCA:"+message);});
+        	
+        	Logger.debug("After Sink  ");
+        	
+        	Logger.debug("Before Flow  ");
+        	
+        	Flow flow2=Flow.
+        	
+        	Flow flow = Flow.<String>create().map(s -> {
+        		                                        
+        		                                        Logger.debug("_____socket flow  + MCA:"+s);
+        		                                        return (s.toUpperCase());
+        	 											});
+
+            // log the message to stdout and send response back to client
+            /*return Flow.<String>create().map(msg -> {
+							                System.out.println(msg);
+							                return "I received your message: " + msg;
+            								});*/
+        	Logger.debug("After Flow ");
+        	
+        	return flow;
+           });
+    }
+    
 	/**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -52,6 +87,9 @@ public class HomeController extends Controller {
         return ok(views.html.index.render());
     }
     
+    public Result webSocket() {
+        return ok(views.html.webSocket.render());
+    }
     
     
     
