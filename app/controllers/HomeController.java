@@ -23,7 +23,8 @@ public class HomeController extends Controller {
 	private final ActorSystem actorSystem;
     private final Materializer materializer;
 
-    @Inject
+@Singleton
+@Inject
     public HomeController(ActorSystem actorSystem, Materializer materializer) {
         this.actorSystem = actorSystem;
         this.materializer = materializer;
@@ -34,13 +35,11 @@ public class HomeController extends Controller {
     	toto=toto+1;
     	//test
     	Logger.debug("WebSocket WS. + toto:"+toto);
-        
+    	Logger.debug("WebSocket WS. + actorSystem="+actorSystem.name());
     	
         return WebSocket.Text.accept(request ->
-                ActorFlow.actorRef(MyWebSocketActor::props,
-                    actorSystem, materializer
-                )
-        );
+                ActorFlow.actorRef(MyWebSocketActor::props, actorSystem, materializer)
+                                  );
     }
 	
     public WebSocket socket() {

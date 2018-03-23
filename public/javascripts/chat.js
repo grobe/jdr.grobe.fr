@@ -10,7 +10,7 @@ window.onload = function () {
     var label = document.getElementById("status-label");
 
     // Connect to the WebSocket server!
-    var socket = new WebSocket("ws://localhost:9000/socket");
+    var socket = new WebSocket("ws://localhost:9000/ws");
 
     /**
     * WebSocket onopen event.
