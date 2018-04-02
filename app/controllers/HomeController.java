@@ -9,7 +9,7 @@ import akka.actor.ActorSystem;
 import akka.stream.Materializer;
 import play.libs.streams.ActorFlow;
 import play.mvc.*;
-import actors.MyWebSocketActor;
+import actors.MyWebSocketActor1;
 import play.Logger;
 /**
  * This controller contains an action to handle HTTP requests
@@ -38,43 +38,10 @@ public class HomeController extends Controller {
     	Logger.debug("WebSocket WS. + actorSystem="+actorSystem.name());
     	
         return WebSocket.Text.accept(request ->
-                ActorFlow.actorRef(MyWebSocketActor::props, actorSystem, materializer)
+                ActorFlow.actorRef(MyWebSocketActor1::props, actorSystem, materializer)
                                   );
     }
 	
-    public WebSocket socket() {
-        return WebSocket.Text.accept(request -> {
-           
-        	Logger.debug("Before Sink  ");
-        	
-        	Sink<String, ?> sink;
-        	
-        	
-        	
-        	sink= Sink.foreach(message -> { Logger.debug("socket sink  + MCA:"+message);});
-        	
-        	Logger.debug("After Sink  ");
-        	
-        	Logger.debug("Before Flow  ");
-        	
-        	//Flow flow2=Flow.
-        	
-        	Flow flow = Flow.<String>create().map(s -> {
-        		                                        
-        		                                        Logger.debug("_____socket flow  + MCA:"+s);
-        		                                        return (s.toUpperCase());
-        	 											});
-
-            // log the message to stdout and send response back to client
-            /*return Flow.<String>create().map(msg -> {
-							                System.out.println(msg);
-							                return "I received your message: " + msg;
-            								});*/
-        	Logger.debug("After Flow ");
-        	
-        	return flow;
-           });
-    }
     
 	/**
      * An action that renders an HTML page with a welcome message.

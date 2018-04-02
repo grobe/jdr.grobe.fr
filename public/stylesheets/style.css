@@ -5,12 +5,12 @@
 }
 
 body {
-    background: #dcdcdc;
+    background: #ffffff;
     font-size: 1em;
 }
 
 header, article, footer {
-    width: 600px;
+    width: 800px;
     margin: 0 auto;
 }
 
@@ -20,6 +20,14 @@ h1 {
     margin: 50px 0;
     color: #333;
     text-shadow: 1px 1px 1px #fff;
+}
+h2 {
+    font-family: "Helvetica Neue Light", "Segoe UI Light", sans-serif;
+    font-size: 1em;
+    margin:10px 0;
+    color: #333;
+    text-shadow: 1px 1px 1px #fff;
+    text-align: right;
 }
 
 #status-label {
@@ -39,4 +47,8 @@ h1 {
 #send-button, #stop-button {
     width: 20%;
     padding: 6px 10px;
+}
+img {
+  max-width: 100%;
+  height: auto;
 }
